@@ -1,0 +1,9 @@
+# Hidden files
+.DS_Store
+
+# Files
+fonts_public_pb2.pyc
+
+# Directories
+__pycache__/
+fonts/
