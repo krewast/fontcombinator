@@ -8,7 +8,7 @@ import json
 
 print('- Start generating metadata.json')
 
-font_families = {}
+font_families = []
 
 # Each license has a separate directory that contains fonts
 for dir_name in ['apache', 'ofl', 'ufl']:
@@ -22,6 +22,7 @@ for dir_name in ['apache', 'ofl', 'ufl']:
 
         # Dict to hold all the necessary data for the 
         font_family = {
+            'name': protobuf_font_family.name,
             'designer': protobuf_font_family.designer,
             'license': protobuf_font_family.license,
             'category': protobuf_font_family.category,
@@ -40,9 +41,9 @@ for dir_name in ['apache', 'ofl', 'ufl']:
             if (subset not in font_family['subsets']) and (subset != 'menu'):
                 font_family['subsets'].append(subset)
 
-        font_families[protobuf_font_family.name] = font_family
+        font_families.append(font_family)
 
-with open('metadata.json', 'w') as file:
+with open('./public/data/metadata.json', 'w') as file:
     json.dump(font_families, file)
 
 print('- Finished successfully')
