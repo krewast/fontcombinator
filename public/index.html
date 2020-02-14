@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-US">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Create Google Font combinations | Font Combinator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Create Google Font combinations">
+  <meta name="author" content="Bastian Kres">
+
+  <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="./css/main.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Courier+Prime:400,700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <a class="navbar-brand" href="/">
+      <h1>
+        Font Combinator
+        <span> - Create Google Font combinations</span>
+      </h1>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Start</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div id="content">
+      <div id="combinator" class="row">
+        <div id="settings" class="col-12 col-md-4 col-lg-3 col-xl-2">
+          <h2>Settings</h2>
+          <button v-on:click="showMarkdownEditor = !showMarkdownEditor" type="button" class="btn btn-light btn-edit">Edit example text</button>
+
+          <hr>
+
+          <h3>Header</h3>
+
+          <form>
+            <div class="form-group">
+              <label for="hFont">Font Family</label>
+              <select id="hFont" class="form-control" v-model="hFontSelected">
+                <option v-for="font in orderedFonts" v-bind:value="font">
+                  {{font.name}}
+                </option>
+              </select>
+            </div>
+
+            <div v-if="hFontSelected !== undefined">
+              <div class="form-group">
+                <label for="hFontStyle">Font Style</label>
+                <select id="hFontStyle" class="form-control" v-model="hFontStyleSelected">
+                  <option v-for="variant in hFontSelected.variants" v-bind:value="variant">
+                    {{variant.weight}} ({{variant.style}})
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="hFontSize">Font Size</label>
+                <div class="input-group">
+                  <input type="number" min="0" class="form-control">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="hFontSize">px</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="hLineHeight">Line Height</label>
+                <div class="input-group">
+                  <input type="number" min="0" class="form-control" v-model="hLineHeight">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="hLineHeight">px</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-check" v-for="(subset, index) in hFontSelected.subsets">
+                  <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="hSubsets" v-bind:id="'hSubset' + index">
+                  <label class="form-check-label" v-bind:for="'hSubset' + index">
+                    {{subset}}
+                  </label>
+                </div>
+              </div>
+
+              <strong>Category:</strong><br>
+              {{hFontSelected.category}}<br>
+              <strong>Designer:</strong><br>
+              {{hFontSelected.designer}}<br>
+              <strong>License:</strong><br>
+              {{hFontSelected.license}}
+            </div>
+          </form>
+
+          <hr>
+
+          <h3>Body</h3>
+
+          To do
+        </div>
+
+        <div id="editor" class="col-12 col-md-8 col-lg-9 col-xl-10">
+          <textarea id="editor-input" v-show="showMarkdownEditor" :value="input" @input="updateMarkdown"></textarea>
+          <div id="editor-output" v-show="!showMarkdownEditor" v-html="compiledMarkdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="row">
+        <div class="col-md-6"><a href="https://www.krewast.de/" target="_blank">krewast.de - Web Development &amp; Consulting</a></div>
+        <div class="col-md-6 text-md-right"><a href="https://www.krewast.de/datenschutz/" target="_blank">Datenschutz</a> | <a href="https://www.krewast.de/impressum/" target="_blank">Impressum</a></div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-12">&copy; <span id="current-year">2019</span> Bastian Kres</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="./js/vendor/jquery.min.js"></script>
+  <script src="./js/vendor/bootstrap.min.js"></script>
+  <script src="./js/vendor/vue.min.js"></script>
+  <script src="./js/vendor/marked.min.js"></script>
+  <script src="./js/vendor/lodash.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>

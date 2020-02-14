@@ -1,0 +1,103 @@
+
+/* ===============
+ * General
+ * =============== */
+
+* {
+  font-size: 18px;
+  line-height: 1.5rem;
+  color: #34353b;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 1.3rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+select,
+input {
+  border: 1px solid #34353b !important;
+}
+
+textarea {
+  overflow: auto;
+}
+
+/* ===============
+ * Navigation
+ * =============== */
+
+nav {
+  border-bottom: 2px solid #34353b;
+}
+
+/* ===============
+ * Sidebar
+ * =============== */
+
+#settings {
+  border-right: 2px solid #34353b;
+}
+
+.btn-edit {
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+}
+
+#settings,
+#editor {
+  padding: 15px 20px;
+  border-bottom: 2px solid #34353b;
+}
+
+/* ===============
+ * Editor
+ * =============== */
+
+#editor #editor-input {
+  font-family: Monaco, courier, monospace;
+  font-size: 15px;
+  line-height: 1.1rem;
+  background-color: rgb(246, 246, 246);
+  border-style: none;
+  outline: none;
+}
+
+#editor #editor-input,
+#editor #editor-output {
+  width: 100%;
+  min-height: 500px;
+  height: 100%;
+}
+
+/* ===============
+ * Footer
+ * =============== */
+
+footer {
+  padding: 10px;
+}
