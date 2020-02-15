@@ -15,10 +15,7 @@
 <body>
   <nav class="navbar navbar-expand-sm navbar-light">
     <a class="navbar-brand" href="/">
-      <h1>
-        Font Combinator
-        <span> - Create Google Font combinations</span>
-      </h1>
+      <h1>Font Combinator</h1>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,83 +34,96 @@
   </nav>
 
   <div class="container-fluid">
-    <div id="content">
-      <div id="combinator" class="row">
-        <div id="settings" class="col-12 col-md-4 col-lg-3 col-xl-2">
-          <h2>Settings</h2>
-          <button v-on:click="showMarkdownEditor = !showMarkdownEditor" type="button" class="btn btn-light btn-edit">Edit example text</button>
+    <div id="combinator" class="row">
+      <div id="sidebar" class="col-12 col-md-4 col-lg-3 col-xl-2">
 
-          <hr>
+        <h2>h1</h2>
 
-          <h3>Header</h3>
+        <form>
+          <div class="form-group">
+            <label for="h1Font">Font Family</label>
+            <select id="h1Font" class="form-control" v-model="h1Font">
+              <option v-for="font in orderedFonts" v-bind:value="font">
+                {{font.name}}
+              </option>
+            </select>
+          </div>
 
-          <form>
+          <div v-if="h1Font !== undefined">
             <div class="form-group">
-              <label for="hFont">Font Family</label>
-              <select id="hFont" class="form-control" v-model="hFontSelected">
-                <option v-for="font in orderedFonts" v-bind:value="font">
-                  {{font.name}}
+              <label for="h1FontVariant">Font Variant</label>
+              <select id="h1FontVariant" class="form-control" v-model="h1FontVariant">
+                <option v-for="variant in h1Font.variants" v-bind:value="variant">
+                  {{variant.weight}} ({{variant.style}})
                 </option>
               </select>
             </div>
 
-            <div v-if="hFontSelected !== undefined">
-              <div class="form-group">
-                <label for="hFontStyle">Font Style</label>
-                <select id="hFontStyle" class="form-control" v-model="hFontStyleSelected">
-                  <option v-for="variant in hFontSelected.variants" v-bind:value="variant">
-                    {{variant.weight}} ({{variant.style}})
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="hFontSize">Font Size</label>
-                <div class="input-group">
-                  <input type="number" min="0" class="form-control">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="hFontSize">px</span>
-                  </div>
+            <div class="form-group">
+              <label for="h1FontSize">Font Size</label>
+              <div class="input-group">
+                <input type="number" min="0" step="1" class="form-control" v-model="h1FontSize">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="h1FontSize">px</span>
                 </div>
               </div>
-
-              <div class="form-group">
-                <label for="hLineHeight">Line Height</label>
-                <div class="input-group">
-                  <input type="number" min="0" class="form-control" v-model="hLineHeight">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="hLineHeight">px</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="form-check" v-for="(subset, index) in hFontSelected.subsets">
-                  <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="hSubsets" v-bind:id="'hSubset' + index">
-                  <label class="form-check-label" v-bind:for="'hSubset' + index">
-                    {{subset}}
-                  </label>
-                </div>
-              </div>
-
-              <strong>Category:</strong><br>
-              {{hFontSelected.category}}<br>
-              <strong>Designer:</strong><br>
-              {{hFontSelected.designer}}<br>
-              <strong>License:</strong><br>
-              {{hFontSelected.license}}
             </div>
-          </form>
 
-          <hr>
+            <div class="form-group">
+              <label for="h1LineHeight">Line Height</label>
+              <div class="input-group">
+                <input type="number" min="0" step="0.05" class="form-control" v-model="h1LineHeight">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="h1LineHeight">em</span>
+                </div>
+              </div>
+            </div>
 
-          <h3>Body</h3>
+            <div class="form-group">
+              <label for="h1MarginBottom">Margin Bottom</label>
+              <div class="input-group">
+                <input type="number" min="0" step="0.05" class="form-control" v-model="h1MarginBottom">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="h1MarginBottom">em</span>
+                </div>
+              </div>
+            </div>
 
-          To do
+            <div class="form-group">
+              <strong>Subsets</strong>
+              <div class="form-check" v-for="(subset, index) in h1Font.subsets">
+                <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="h1Subsets" v-bind:id="'hSubset' + index">
+                <label class="form-check-label" v-bind:for="'hSubset' + index">
+                  {{subset}}
+                </label>
+              </div>
+            </div>
+
+            <strong>Category:</strong><br>
+            {{prettyFontCategory(h1Font.category)}}<br>
+            <strong>Designer:</strong><br>
+            {{h1Font.designer}}<br>
+            <strong>License:</strong><br>
+            {{h1Font.license}}
+          </div>
+        </form>
+
+        <hr>
+
+        <h2>p</h2>
+
+        To do
+      </div>
+
+      <div id="content" class="col-12 col-md-8 col-lg-9 col-xl-10">
+        <div id="settings">
+          <button type="button" class="btn btn-light btn-edit" v-on:click="showMarkdownEditor = !showMarkdownEditor">
+            Toggle Markdown/Editor
+          </button>
         </div>
 
-        <div id="editor" class="col-12 col-md-8 col-lg-9 col-xl-10">
-          <textarea id="editor-input" v-show="showMarkdownEditor" :value="input" @input="updateMarkdown"></textarea>
+        <div id="editor">
+          <textarea id="editor-input" v-show="showMarkdownEditor" v-model="input" @input="updateMarkdown"></textarea>
           <div id="editor-output" v-show="!showMarkdownEditor" v-html="compiledMarkdown"></div>
         </div>
       </div>
@@ -121,11 +131,16 @@
 
     <footer>
       <div class="row">
-        <div class="col-md-6"><a href="https://www.krewast.de/" target="_blank">krewast.de - Web Development &amp; Consulting</a></div>
-        <div class="col-md-6 text-md-right"><a href="https://www.krewast.de/datenschutz/" target="_blank">Datenschutz</a> | <a href="https://www.krewast.de/impressum/" target="_blank">Impressum</a></div>
+        <div class="col-md-6">
+          <a href="https://www.krewast.de/" target="_blank">krewast.de - Web Development &amp; Consulting</a>
+        </div>
+        <div class="col-md-6 text-md-right">
+          <a href="https://www.krewast.de/datenschutz/" target="_blank">Datenschutz</a> |
+          <a href="https://www.krewast.de/impressum/" target="_blank">Impressum</a>
+        </div>
       </div>
       <div class="row mb-1">
-        <div class="col-12">&copy; <span id="current-year">2019</span> Bastian Kres</div>
+        <div class="col-12">&copy; <span id="current-year">2020</span> Bastian Kres</div>
       </div>
     </footer>
   </div>
