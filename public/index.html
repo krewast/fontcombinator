@@ -37,82 +37,82 @@
     <div id="combinator" class="row">
       <div id="sidebar" class="col-12 col-md-4 col-lg-3 col-xl-2">
 
-        <h2>h1</h2>
+        <div v-for="tag in tags">
 
-        <form>
-          <div class="form-group">
-            <label for="h1Font">Font Family</label>
-            <select id="h1Font" class="form-control" v-model="h1Font">
-              <option v-for="font in orderedFonts" v-bind:value="font">
-                {{font.name}}
-              </option>
-            </select>
-          </div>
+          <h2>{{tag.name}}</h2>
 
-          <div v-if="h1Font !== undefined">
+          <form>
             <div class="form-group">
-              <label for="h1FontVariant">Font Variant</label>
-              <select id="h1FontVariant" class="form-control" v-model="h1FontVariant">
-                <option v-for="variant in h1Font.variants" v-bind:value="variant">
-                  {{variant.weight}} ({{variant.style}})
+              <label for="font">Font Family</label>
+              <select id="font" class="form-control" v-model="tag.font">
+                <option v-for="font in orderedFonts" v-bind:value="font">
+                  {{font.name}}
                 </option>
               </select>
             </div>
 
-            <div class="form-group">
-              <label for="h1FontSize">Font Size</label>
-              <div class="input-group">
-                <input type="number" min="0" step="1" class="form-control" v-model="h1FontSize">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="h1FontSize">px</span>
+            <div v-if="tag.font !== undefined">
+              <div class="form-group">
+                <label for="font-variant">Font Variant</label>
+                <select id="font-variant" class="form-control" v-model="tag.fontVariant">
+                  <option v-for="variant in tag.font.variants" v-bind:value="variant">
+                    {{variant.weight}} ({{variant.style}})
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="font-size">Font Size</label>
+                <div class="input-group">
+                  <input type="number" min="0" step="1" class="form-control" v-model="tag.fontSize">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="font-size">px</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="h1LineHeight">Line Height</label>
-              <div class="input-group">
-                <input type="number" min="0" step="0.05" class="form-control" v-model="h1LineHeight">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="h1LineHeight">em</span>
+              <div class="form-group">
+                <label for="line-height">Line Height</label>
+                <div class="input-group">
+                  <input type="number" min="0" step="0.05" class="form-control" v-model="tag.lineHeight">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="line-height">em</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label for="h1MarginBottom">Margin Bottom</label>
-              <div class="input-group">
-                <input type="number" min="0" step="0.05" class="form-control" v-model="h1MarginBottom">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="h1MarginBottom">em</span>
+              <div class="form-group">
+                <label for="margin-bottom">Margin Bottom</label>
+                <div class="input-group">
+                  <input type="number" min="0" step="0.05" class="form-control" v-model="tag.marginBottom">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="margin-bottom">em</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <strong>Subsets</strong>
-              <div class="form-check" v-for="(subset, index) in h1Font.subsets">
-                <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="h1Subsets" v-bind:id="'hSubset' + index">
-                <label class="form-check-label" v-bind:for="'hSubset' + index">
-                  {{subset}}
-                </label>
+              <div class="form-group">
+                <strong>Subsets</strong>
+                <div class="form-check" v-for="(subset, index) in tag.font.subsets">
+                  <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="tag.subsets" v-bind:id="'subset' + index">
+                  <label class="form-check-label" v-bind:for="'subset' + index">
+                    {{subset}}
+                  </label>
+                </div>
               </div>
+
+              <strong>Category:</strong><br>
+              {{prettyFontCategory(tag.font.category)}}<br>
+              <strong>Designer:</strong><br>
+              {{tag.font.designer}}<br>
+              <strong>License:</strong><br>
+              {{tag.font.license}}
             </div>
+          </form>
 
-            <strong>Category:</strong><br>
-            {{prettyFontCategory(h1Font.category)}}<br>
-            <strong>Designer:</strong><br>
-            {{h1Font.designer}}<br>
-            <strong>License:</strong><br>
-            {{h1Font.license}}
-          </div>
-        </form>
+          <hr>
 
-        <hr>
-
-        <h2>p</h2>
-
-        To do
+        </div>
       </div>
 
       <div id="content" class="col-12 col-md-8 col-lg-9 col-xl-10">
