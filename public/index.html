@@ -36,82 +36,86 @@
   <div class="container-fluid">
     <div id="combinator" class="row">
       <div id="sidebar" class="col-12 col-md-4 col-lg-3 col-xl-2">
-
-        <div v-for="tag in tags">
-
-          <h2>{{tag.name}}</h2>
-
-          <form>
-            <div class="form-group">
-              <label for="font">Font Family</label>
-              <select id="font" class="form-control" v-model="tag.font">
-                <option v-for="font in orderedFonts" v-bind:value="font">
-                  {{font.name}}
-                </option>
-              </select>
+        <div id="accordion">
+          <div class="card" v-for="(tag, tagIndex) in tags">
+            <div class="card-header" id="headingOne">
+              <a class="" href="#" role="button" data-toggle="collapse" v-bind:data-target="'#collapse' + tagIndex" aria-expanded="true" v-bind:aria-controls="'collapse' + tagIndex">
+                <h2>{{tag.name}}</h2>
+              </a>
             </div>
-
-            <div v-if="tag.font !== undefined">
-              <div class="form-group">
-                <label for="font-variant">Font Variant</label>
-                <select id="font-variant" class="form-control" v-model="tag.fontVariant">
-                  <option v-for="variant in tag.font.variants" v-bind:value="variant">
-                    {{variant.weight}} ({{variant.style}})
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="font-size">Font Size</label>
-                <div class="input-group">
-                  <input type="number" min="0" step="1" class="form-control" v-model="tag.fontSize">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="font-size">px</span>
+            <div v-bind:id="'collapse' + tagIndex" class="collapse" v-bind:class="{show : (tagIndex === 0)}" aria-labelledby="'heading' + tagIndex" data-parent="#accordion">
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <label for="font">Font Family</label>
+                    <select id="font" class="form-control" v-model="tag.font">
+                      <option v-for="font in orderedFonts" v-bind:value="font">
+                        {{font.name}}
+                      </option>
+                    </select>
                   </div>
-                </div>
-              </div>
 
-              <div class="form-group">
-                <label for="line-height">Line Height</label>
-                <div class="input-group">
-                  <input type="number" min="0" step="0.05" class="form-control" v-model="tag.lineHeight">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="line-height">em</span>
+                  <div v-if="tag.font !== undefined">
+                    <div class="form-group">
+                      <label for="font-variant">Font Variant</label>
+                      <select id="font-variant" class="form-control" v-model="tag.fontVariant">
+                        <option v-for="variant in tag.font.variants" v-bind:value="variant">
+                          {{variant.weight}} ({{variant.style}})
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="font-size">Font Size</label>
+                      <div class="input-group">
+                        <input type="number" min="0" step="1" class="form-control" v-model="tag.fontSize">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="font-size">px</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="line-height">Line Height</label>
+                      <div class="input-group">
+                        <input type="number" min="0" step="0.05" class="form-control" v-model="tag.lineHeight">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="line-height">em</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="margin-bottom">Margin Bottom</label>
+                      <div class="input-group">
+                        <input type="number" min="0" step="0.05" class="form-control" v-model="tag.marginBottom">
+                        <div class="input-group-append">
+                          <span class="input-group-text" id="margin-bottom">em</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <strong>Subsets</strong>
+                      <div class="form-check" v-for="(subset, subsetIndex) in tag.font.subsets">
+                        <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="tag.subsets" v-bind:id="'subset' + subsetIndex">
+                        <label class="form-check-label" v-bind:for="'subset' + subsetIndex">
+                          {{subset}}
+                        </label>
+                      </div>
+                    </div>
+
+                    <strong>Category:</strong><br>
+                    {{prettyFontCategory(tag.font.category)}}<br>
+                    <strong>Designer:</strong><br>
+                    {{tag.font.designer}}<br>
+                    <strong>License:</strong><br>
+                    {{tag.font.license}}
                   </div>
-                </div>
+                </form>
               </div>
-
-              <div class="form-group">
-                <label for="margin-bottom">Margin Bottom</label>
-                <div class="input-group">
-                  <input type="number" min="0" step="0.05" class="form-control" v-model="tag.marginBottom">
-                  <div class="input-group-append">
-                    <span class="input-group-text" id="margin-bottom">em</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <strong>Subsets</strong>
-                <div class="form-check" v-for="(subset, index) in tag.font.subsets">
-                  <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="tag.subsets" v-bind:id="'subset' + index">
-                  <label class="form-check-label" v-bind:for="'subset' + index">
-                    {{subset}}
-                  </label>
-                </div>
-              </div>
-
-              <strong>Category:</strong><br>
-              {{prettyFontCategory(tag.font.category)}}<br>
-              <strong>Designer:</strong><br>
-              {{tag.font.designer}}<br>
-              <strong>License:</strong><br>
-              {{tag.font.license}}
             </div>
-          </form>
-
-          <hr>
-
+          </div>
         </div>
       </div>
 
