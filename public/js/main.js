@@ -59,8 +59,26 @@
         },
         updateContent: function() {
           for (tag of this.tags) {
-            if (tag.font === undefined || tag.fontVariant == undefined) {
+            if (tag.font === undefined) {
               continue;
+            }
+
+            if (tag.fontVariant === undefined) {
+              var defaultFontVariantFound = false;
+              var defaultFontVariantIndex = 0;
+              for (var fontVariant of tag.font.variants) {
+                if (fontVariant.weight === 400 && fontVariant.style === 'normal') {
+                  defaultFontVariantFound = true;
+                  break;
+                }
+                defaultFontVariantIndex++;
+              }
+
+              if (defaultFontVariantFound) {
+                tag.fontVariant = tag.font.variants[defaultFontVariantIndex];
+              } else {
+                tag.fontVariant = tag.font.variants[0];
+              }
             }
 
             var fontFamilyName = tag.font.name.replace(' ', '+');
