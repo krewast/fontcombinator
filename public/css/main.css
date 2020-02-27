@@ -24,7 +24,6 @@ h6 {
 
 h1 {
   font-size: 1.4rem;
-  margin-bottom: 0;
 }
 
 h2 {
@@ -62,18 +61,35 @@ nav,
  * Navigation
  * =============== */
 
+nav h1 {
+  margin-bottom: 0;
+}
 
+/* ===============
+ * Vue app
+ * =============== */
+
+[v-cloak] {
+  display: none;
+}
 
 /* ===============
  * Sidebar
  * =============== */
 
-#sidebar {
-  padding: 20px;
+#sidebar,
+.card-header {
+  padding: 0px;
 }
 
-.btn-edit {
-  width: 100%;
+.card,
+.card-header {
+  border-radius: 0;
+}
+
+#sidebar h2 {
+  padding: 4px 18px;
+  margin-bottom: 0;
 }
 
 label {
@@ -92,11 +108,14 @@ label {
   padding: 0;
 }
 
-/* Setting */
+/* Settings */
 
 #settings {
   border-bottom: 1px solid black;
-  background-color: orange;
+}
+
+.btn-edit {
+  width: 100%;
 }
 
 /* Editor */
