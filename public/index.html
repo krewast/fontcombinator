@@ -17,11 +17,11 @@
     <a class="navbar-brand" href="/">
       <h1>Font Combinator</h1>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <!--
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!--
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
@@ -41,11 +41,11 @@
         <div id="accordion">
           <div class="card" v-for="(tag, tagIndex) in tags">
             <div class="card-header" v-bind:id="'heading' + tagIndex">
-              <a class="" href="#" role="button" data-toggle="collapse" v-bind:data-target="'#collapse' + tagIndex" aria-expanded="true" v-bind:aria-controls="'collapse' + tagIndex">
+              <a class="" href="#" role="button" data-toggle="collapse" v-bind:data-target="'#collapse' + tagIndex">
                 <h2>{{tag.name}}</h2>
               </a>
             </div>
-            <div v-bind:id="'collapse' + tagIndex" class="collapse" v-bind:class="{show : (tagIndex === 0)}" v-bind:aria-labelledby="'heading' + tagIndex" data-parent="#accordion">
+            <div v-bind:id="'collapse' + tagIndex" class="collapse" v-bind:class="{show : (tagIndex === 0)}" data-parent="#accordion">
               <div class="card-body">
                 <form>
                   <div class="form-group">
@@ -69,7 +69,7 @@
 
                     <div class="form-group">
                       <label for="font-size">Font Size</label>
-                      <div class="input-group">
+                      <div class="input-group input-group-sm">
                         <input type="number" min="0" step="1" class="form-control" v-model="tag.fontSize">
                         <div class="input-group-append">
                           <span class="input-group-text" id="font-size">px</span>
@@ -79,7 +79,7 @@
 
                     <div class="form-group">
                       <label for="line-height">Line Height</label>
-                      <div class="input-group">
+                      <div class="input-group input-group-sm">
                         <input type="number" min="0" step="0.05" class="form-control" v-model="tag.lineHeight">
                         <div class="input-group-append">
                           <span class="input-group-text" id="line-height">em</span>
@@ -89,7 +89,7 @@
 
                     <div class="form-group">
                       <label for="margin-bottom">Margin Bottom</label>
-                      <div class="input-group">
+                      <div class="input-group input-group-sm">
                         <input type="number" min="0" step="0.05" class="form-control" v-model="tag.marginBottom">
                         <div class="input-group-append">
                           <span class="input-group-text" id="margin-bottom">em</span>
@@ -98,9 +98,9 @@
                     </div>
 
                     <div class="form-group">
-                      <strong>Subsets</strong>
+                      <strong>Subsets / Languages</strong>
                       <div class="form-check" v-for="(subset, subsetIndex) in tag.font.subsets">
-                        <input class="form-check-input" type="checkbox" v-bind:value="subset" v-model="tag.subsets" v-bind:id="'subset' + subsetIndex">
+                        <input class="form-check-input" v-bind:id="'subset' + subsetIndex" type="checkbox" v-bind:value="subset" v-model="tag.subsets" v-bind:disabled="tag.subsets.length === 1 && tag.subsets.includes(subset)">
                         <label class="form-check-label" v-bind:for="'subset' + subsetIndex">
                           {{subset}}
                         </label>
@@ -122,25 +122,35 @@
       </div>
 
       <div id="content" class="col-12 col-md-8 col-lg-9 col-xl-10">
-        <div id="settings">
-          <button type="button" class="btn btn-light btn-edit" v-on:click="showMarkdownEditor = !showMarkdownEditor">
-            Toggle Markdown/Editor
-          </button>
+        <div class="nav nav-tabs" role="tablist">
+          <a class="nav-item nav-link active" data-toggle="tab" href="#design-tab" role="tab">Design</a>
+          <a class="nav-item nav-link" data-toggle="tab" href="#edit-tab" role="tab">Edit</a>
+          <a class="nav-item nav-link" data-toggle="tab" href="#embed-tab" role="tab">Embed</a>
         </div>
+        <div class="tab-content">
+          <div id="design-tab" class="tab-pane show active" role="tabpanel">
+            <div id="editor-output" v-html="compiledMarkdown"></div>
+          </div>
+          <div id="edit-tab" class="tab-pane" role="tabpanel">
+            <textarea id="editor-input" v-model="input" @input="updateMarkdown"></textarea>
+          </div>
+          <div id="embed-tab" class="tab-pane" role="tabpanel">
+            <h2>HTML</h2>
+            <pre>{{embedCodeHTML}}</pre>
 
-        <div id="editor">
-          <textarea id="editor-input" v-show="showMarkdownEditor" v-model="input" @input="updateMarkdown"></textarea>
-          <div id="editor-output" v-show="!showMarkdownEditor" v-html="compiledMarkdown"></div>
+            <h2>CSS</h2>
+            <pre>{{embedCodeCSS}}</pre>
+          </div>
         </div>
       </div>
     </div>
 
     <footer>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-1 mb-md-0">
           <a href="https://www.krewast.de/" target="_blank">krewast.de - Web Development &amp; Consulting</a>
         </div>
-        <div class="col-md-6 text-md-right">
+        <div class="col-md-6 mb-1 mb-md-0 text-md-right">
           <a href="https://www.krewast.de/datenschutz/" target="_blank">Datenschutz</a> |
           <a href="https://www.krewast.de/impressum/" target="_blank">Impressum</a>
         </div>

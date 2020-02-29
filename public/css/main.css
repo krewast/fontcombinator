@@ -23,15 +23,19 @@ h6 {
 }
 
 h1 {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
 }
 
 h2 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
 }
 
 h3 {
   font-size: 1.2rem;
+}
+
+label {
+  font-weight: bold;
 }
 
 select,
@@ -53,8 +57,10 @@ nav,
   border-bottom: 2px solid #34353b;
 }
 
-#sidebar {
-  border-right: 2px solid #34353b;
+@media (min-width: 768px) {
+  #sidebar {
+    border-right: 2px solid #34353b;
+  }
 }
 
 /* ===============
@@ -62,6 +68,7 @@ nav,
  * =============== */
 
 nav h1 {
+  font-size: 1.4rem;
   margin-bottom: 0;
 }
 
@@ -78,26 +85,44 @@ nav h1 {
  * =============== */
 
 #sidebar,
-.card-header {
+#sidebar .card .card-header {
   padding: 0px;
 }
 
-.card,
-.card-header {
+#sidebar .card,
+#sidebar .card .card-header {
+  border: none;
   border-radius: 0;
 }
 
-#sidebar h2 {
-  padding: 4px 18px;
+#sidebar .card .card-header {
+  border-top: 1px solid #34353b;
+}
+
+#sidebar .card:first-child .card-header {
+  border-top: none;
+}
+
+#sidebar .card .card-header h2 {
+  padding: 0.2rem 1rem;
   margin-bottom: 0;
+  color: #007bff;
 }
 
-label {
-  font-weight: bold;
+#sidebar .card .card-body {
+  padding: 0.6rem 1rem;
 }
 
-.form-check-label {
+#sidebar .form-group {
+  margin-bottom: 0.5rem;
+}
+
+#sidebar .form-group .form-check-label {
   font-weight: normal;
+}
+
+#sidebar .form-group .input-group-append .input-group-text {
+  min-width: 45px;
 }
 
 /* ===============
@@ -108,36 +133,56 @@ label {
   padding: 0;
 }
 
-/* Settings */
-
-#settings {
-  border-bottom: 1px solid black;
+.nav-tabs {
+  position: relative;
+  top: -1px;
+  padding: 0 1rem;
+  border-bottom: 1px solid #34353b;
 }
 
-.btn-edit {
+.nav-item.nav-link {
+  border-radius: 0;
+}
+
+.nav-item.nav-link.active {
+  border-color: #34353b #34353b #ffffff;
+}
+
+/* Design */
+
+#design-tab #editor-output,
+#edit-tab #editor-input {
   width: 100%;
+  min-height: 500px;
+  height: 100%;
+  padding: 1rem;
 }
 
-/* Editor */
+/* Edit */
 
-#editor {
-  padding: 20px;
-}
-
-#editor #editor-input {
-  font-family: Monaco, courier, monospace;
+#edit-tab #editor-input {
+  font-family: Monaco, Courier, monospace;
   font-size: 15px;
   line-height: 1.1rem;
-  background-color: rgb(246, 246, 246);
+  background-color: rgba(0, 0, 0, 0.03);
   border-style: none;
   outline: none;
 }
 
-#editor #editor-input,
-#editor #editor-output {
-  width: 100%;
-  min-height: 500px;
-  height: 100%;
+/* Embed */
+
+#embed-tab {
+  padding-top: 1rem;
+}
+
+#embed-tab h2 {
+  padding: 0 1rem;
+}
+
+#embed-tab pre {
+  display: block;
+  padding: 1rem 1rem 0 1rem;
+  background-color: rgba(0, 0, 0, 0.03);
 }
 
 /* ===============
