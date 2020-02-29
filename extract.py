@@ -20,7 +20,7 @@ for dir_name in ['apache', 'ofl', 'ufl']:
         protobuf_font_family = fonts_public_pb2.FamilyProto()
         text_format.Merge(protobuf, protobuf_font_family)
 
-        # Dict to hold all the necessary data for the 
+        # Dict to hold all the necessary data for each font
         font_family = {
             'name': protobuf_font_family.name,
             'designer': protobuf_font_family.designer,
@@ -41,7 +41,9 @@ for dir_name in ['apache', 'ofl', 'ufl']:
             if (subset not in font_family['subsets']) and (subset != 'menu'):
                 font_family['subsets'].append(subset)
 
-        font_families.append(font_family)
+        # Don't include fonts without language subsets (e.g. Adobe Blank)
+        if (font_family['subsets']):
+            font_families.append(font_family)
 
 with open('./public/data/metadata.json', 'w') as file:
     json.dump(font_families, file)
