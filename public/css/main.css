@@ -22,16 +22,9 @@ h6 {
   font-weight: bold;
 }
 
-h1 {
-  font-size: 1.6rem;
-}
-
-h2 {
-  font-size: 1.4rem;
-}
-
-h3 {
-  font-size: 1.2rem;
+p {
+  margin-bottom: 0.8em;
+  line-height: 1.4em;
 }
 
 label {
@@ -41,10 +34,6 @@ label {
 select,
 input {
   border: 1px solid #34353b !important;
-}
-
-textarea {
-  overflow: auto;
 }
 
 /* ===============
@@ -68,8 +57,8 @@ nav,
  * =============== */
 
 nav h1 {
-  font-size: 1.4rem;
   margin-bottom: 0;
+  font-size: 1.4rem;
 }
 
 /* ===============
@@ -104,8 +93,9 @@ nav h1 {
 }
 
 #sidebar .card .card-header h2 {
-  padding: 0.2rem 1rem;
+  padding: 0.4rem 1rem;
   margin-bottom: 0;
+  font-size: 1.2rem;
   color: #007bff;
 }
 
@@ -156,6 +146,36 @@ nav h1 {
   min-height: 500px;
   height: 100%;
   padding: 1rem;
+}
+
+#design-tab #editor-output h1,
+#design-tab #editor-output h2,
+#design-tab #editor-output h3,
+#design-tab #editor-output h4,
+#design-tab #editor-output h5,
+#design-tab #editor-output h6 {
+  margin-bottom: 0.2em;
+  line-height: 1.15em;
+}
+
+#design-tab #editor-output h1 {
+  font-size: 34px;
+}
+
+#design-tab #editor-output h2 {
+  font-size: 30px;
+}
+
+#design-tab #editor-output h3 {
+  font-size: 26px;
+}
+
+#design-tab #editor-output h4 {
+  font-size: 22px;
+}
+
+#design-tab #editor-output h5 {
+  font-size: 18px;
 }
 
 /* Edit */
