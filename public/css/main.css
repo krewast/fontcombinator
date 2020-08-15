@@ -40,7 +40,6 @@ input {
  * Layout
  * =============== */
 
-nav,
 #sidebar,
 #content {
   border-bottom: 2px solid #34353b;
@@ -56,9 +55,10 @@ nav,
  * Navigation
  * =============== */
 
-nav h1 {
+nav a h1 {
   margin-bottom: 0;
   font-size: 1.4rem;
+  color: #ffffff;
 }
 
 /* ===============
@@ -124,8 +124,7 @@ nav h1 {
 }
 
 .nav-tabs {
-  position: relative;
-  top: -1px;
+  margin-top: 5px;
   padding: 0 1rem;
   border-bottom: 1px solid #34353b;
 }

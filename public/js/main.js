@@ -67,6 +67,14 @@
       beforeCreate: function() {
         $.get('./data/metadata.json', function(data) {
           fontcombinator.fonts = data;
+
+          // Set 'Open Sans' as default
+          for (var font of fontcombinator.fonts) {
+            if (font.name === 'Open Sans') {
+              fontcombinator.tags[0].font = font;
+              break;
+            }
+          }
         });
         $.get('./data/introduction.txt', function(data) {
           fontcombinator.input = data;
