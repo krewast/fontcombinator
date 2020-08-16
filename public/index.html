@@ -10,29 +10,28 @@
   <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="./css/main.css">
 
-  <link href="https://fonts.googleapis.com/css?family=Courier+Prime:400,700&amp;display=swap" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Courier+Prime:400,700&amp;display=swap" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <a class="navbar-brand" href="/">
       <h1>Font Combinator</h1>
     </a>
-    <!--
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Start</a>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#modalAbout">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="//github.com/krewast/fontcombinator" target="_blank">Github</a>
         </li>
       </ul>
     </div>
-    -->
   </nav>
 
   <div class="container-fluid">
@@ -153,17 +152,50 @@
     <footer>
       <div class="row">
         <div class="col-md-6 mb-1 mb-md-0">
-          <a href="https://www.krewast.de/" target="_blank">krewast.de - Web Development &amp; Consulting</a>
+          <a href="//www.krewast.de/" target="_blank">krewast.de - Web Development &amp; Consulting</a>
         </div>
         <div class="col-md-6 mb-1 mb-md-0 text-md-right">
-          <a href="https://www.krewast.de/datenschutz/" target="_blank">Datenschutz</a> |
-          <a href="https://www.krewast.de/impressum/" target="_blank">Impressum</a>
+          <a href="//www.krewast.de/datenschutz/" target="_blank">Data Protection</a> |
+          <a href="//www.krewast.de/impressum/" target="_blank">Imprint</a>
         </div>
       </div>
       <div class="row mb-1">
         <div class="col-12">&copy; <span id="current-year">2020</span> Bastian Kres</div>
       </div>
     </footer>
+
+    <!-- Modal: About -->
+    <div class="modal fade" id="modalAbout" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">About</h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              I developed the Font Combinator to solve my own problem: When creating websites, suitable fonts play
+              a major role for the later design. Since not all fonts can be used on the web at will, Google Fonts,
+              a collection of freely usable web fonts, is often used. However, this collection is quite extensive and
+              the selection of suitable fonts or matching combinations of fonts is very time-consuming. To simplify the
+              selection process and to be able to test font combinations quickly, I developed the Font Combinator.
+            </p>
+
+            <p>
+              Using Font Combinator is free and requires no registration. The code of this project is open source
+              and is available on <a href="//github.com/krewast/fontcombinator" target="_blank">Github</a>.
+            </p>
+
+            <p class="mb-0"><a href="//www.krewast.de/" target="_blank">Bastian</a></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="./js/vendor/jquery.min.js"></script>
