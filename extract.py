@@ -6,7 +6,12 @@ import fonts_public_pb2
 import glob
 import json
 
-print('- Start generating metadata.json')
+print('- Start generating fonts_metadata.json')
+
+# Get a list of all font families that have already been published on Google Fonts
+published_fonts_json = None
+with open('published_fonts_metadata.json') as file:
+    published_fonts_json = json.load(file)
 
 font_families = []
 
@@ -20,14 +25,28 @@ for dir_name in ['apache', 'ofl', 'ufl']:
         protobuf_font_family = fonts_public_pb2.FamilyProto()
         text_format.Merge(protobuf, protobuf_font_family)
 
-        # Dict to hold all the necessary data for each font
+        # Check if the current font family has already been published
+        current_published_font_family = None
+        for published_font_family in published_fonts_json:
+            if published_font_family['family'] == protobuf_font_family.name:
+                current_published_font_family = published_font_family
+                break
+
+        # Don't include any font family that hasn't been published on Google Fonts, yet
+        if current_published_font_family is None:
+            continue
+
+        # Dict to hold all the necessary data for each font family
         font_family = {
             'name': protobuf_font_family.name,
             'designer': protobuf_font_family.designer,
             'license': protobuf_font_family.license,
             'category': protobuf_font_family.category,
             'variants': [],
-            'subsets': []
+            'subsets': [],
+            'version': published_font_family['version'],
+            'lastModified': published_font_family['lastModified'],
+            'popularity': published_font_family['popularity']
         }
 
         for font in protobuf_font_family.fonts:
@@ -45,7 +64,7 @@ for dir_name in ['apache', 'ofl', 'ufl']:
         if (font_family['subsets']):
             font_families.append(font_family)
 
-with open('./public/data/metadata.json', 'w') as file:
+with open('./public/data/fonts_metadata.json', 'w') as file:
     json.dump(font_families, file)
 
 print('- Finished successfully')
