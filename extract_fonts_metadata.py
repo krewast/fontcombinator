@@ -9,9 +9,9 @@ import json
 print('- Start generating fonts_metadata.json')
 
 # Get a list of all font families that have already been published on Google Fonts
-published_fonts_json = None
+published_font_families_json = None
 with open('published_fonts_metadata.json') as file:
-    published_fonts_json = json.load(file)
+    published_font_families_json = json.load(file)
 
 font_families = []
 
@@ -26,39 +26,58 @@ for dir_name in ['apache', 'ofl', 'ufl']:
         text_format.Merge(protobuf, protobuf_font_family)
 
         # Check if the current font family has already been published
+        # And yes, this algorithm is not fast. Does it matter? Nope...
         current_published_font_family = None
-        for published_font_family in published_fonts_json:
+        for published_font_family in published_font_families_json:
             if published_font_family['family'] == protobuf_font_family.name:
                 current_published_font_family = published_font_family
                 break
 
         # Don't include any font family that hasn't been published on Google Fonts, yet
+        # --> Some font families are already in the Google Fonts repo but not on the site, yet.
+        # --> Don't use them
         if current_published_font_family is None:
             continue
 
         # Dict to hold all the necessary data for each font family
         font_family = {
             'name': protobuf_font_family.name,
+            'variants': [],
+            'defaultVariant': None,
+            'subsets': [],
+            'defaultSubset': 'latin',
+            'category': protobuf_font_family.category,
             'designer': protobuf_font_family.designer,
             'license': protobuf_font_family.license,
-            'category': protobuf_font_family.category,
-            'variants': [],
-            'subsets': [],
+            'popularity': published_font_family['popularity'],
             'version': published_font_family['version'],
-            'lastModified': published_font_family['lastModified'],
-            'popularity': published_font_family['popularity']
+            'lastModified': published_font_family['lastModified']
         }
 
+        # Add all available variants of this font to a list
         for font in protobuf_font_family.fonts:
             variant = {
-                'style': font.style,
-                'weight': font.weight
+                'weight': font.weight,
+                'style': font.style
             }
             font_family['variants'].append(variant)
 
+            # Check if there is the standard variant (400, normal) available and use it as default
+            if variant['weight'] == 400 and variant['style'] == 'normal':
+                font_family['defaultVariant'] = variant
+
+        # Some fonts don't have the standard variant (400, normal). Use another one instead
+        if font_family['defaultVariant'] == None:
+            font_family['defaultVariant'] = font_family['variants'][0]
+
+        # Add all available subsets of this font to a list
         for subset in protobuf_font_family.subsets:
             if (subset not in font_family['subsets']) and (subset != 'menu'):
                 font_family['subsets'].append(subset)
+
+        # If the subset "latin" is not in the "subsets" list (very rare) use another one instead
+        if font_family['defaultSubset'] not in font_family['subsets']:
+            font_family['defaultSubset'] = font_family['subsets'][0]
 
         # Don't include fonts without language subsets (e.g. Adobe Blank)
         if (font_family['subsets']):

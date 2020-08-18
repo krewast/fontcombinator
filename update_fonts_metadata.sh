@@ -15,4 +15,4 @@ else
 fi
 
 # Extract font metadata and generate a JSON file
-python3 extract.py
+python3 extract_fonts_metadata.py
