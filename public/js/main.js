@@ -7,56 +7,56 @@
           {
             name: 'h1',
             font: undefined,
-            fontVariant: undefined,
+            variant: undefined,
             fontSize: 34,
             lineHeight: 1.15,
             marginBottom: 0.2,
-            subsets: ['latin'],
+            subsets: [],
           },
           {
             name: 'h2',
             font: undefined,
-            fontVariant: undefined,
+            variant: undefined,
             fontSize: 30,
             lineHeight: 1.15,
             marginBottom: 0.2,
-            subsets: ['latin'],
+            subsets: [],
           },
           {
             name: 'h3',
             font: undefined,
-            fontVariant: undefined,
+            variant: undefined,
             fontSize: 26,
             lineHeight: 1.15,
             marginBottom: 0.2,
-            subsets: ['latin'],
-          },
-          {
-            name: 'h4',
-            font: undefined,
-            fontVariant: undefined,
-            fontSize: 22,
-            lineHeight: 1.15,
-            marginBottom: 0.2,
-            subsets: ['latin'],
-          },
-          {
-            name: 'h5',
-            font: undefined,
-            fontVariant: undefined,
-            fontSize: 18,
-            lineHeight: 1.15,
-            marginBottom: 0.2,
-            subsets: ['latin'],
+            subsets: [],
           },
           {
             name: 'p',
             font: undefined,
-            fontVariant: undefined,
+            variant: undefined,
             fontSize: 18,
-            lineHeight: 1.4,
+            lineHeight: 1.3,
             marginBottom: 0.8,
-            subsets: ['latin'],
+            subsets: [],
+          },
+          {
+            name: 'code',
+            font: undefined,
+            variant: undefined,
+            fontSize: 18,
+            lineHeight: 1.3,
+            marginBottom: 0.8,
+            subsets: [],
+          },
+          {
+            name: 'blockquote',
+            font: undefined,
+            variant: undefined,
+            fontSize: 18,
+            lineHeight: 1.3,
+            marginBottom: 0.8,
+            subsets: [],
           },
         ],
         fonts: [],
@@ -65,16 +65,8 @@
         embedCodeCSS: ''
       },
       beforeCreate: function() {
-        $.get('./data/metadata.json', function(data) {
+        $.get('./data/fonts_metadata.json', function(data) {
           fontcombinator.fonts = data;
-
-          // Set 'Open Sans' as default
-          for (var font of fontcombinator.fonts) {
-            if (font.name === 'Open Sans') {
-              fontcombinator.tags[0].font = font;
-              break;
-            }
-          }
         });
         $.get('./data/introduction.txt', function(data) {
           fontcombinator.input = data;
@@ -101,28 +93,41 @@
               continue;
             }
 
-            if (tag.fontVariant === undefined) {
-              var defaultFontVariantFound = false;
-              var defaultFontVariantIndex = 0;
-              for (var fontVariant of tag.font.variants) {
-                if (fontVariant.weight === 400 && fontVariant.style === 'normal') {
-                  defaultFontVariantFound = true;
+            // Set a variant
+            if (tag.variant === undefined) {
+              tag.variant = tag.font.defaultVariant;
+            } else {
+              var selectedVariantIsAvailable = false;
+              for (variant of tag.font.variants) {
+                if (variant.weight === tag.variant.weight &&
+                    variant.style === tag.variant.style) {
+                  selectedVariantIsAvailable = true;
                   break;
                 }
-                defaultFontVariantIndex++;
               }
+              if (selectedVariantIsAvailable === false) {
+                tag.variant = tag.font.defaultVariant;
+              }
+            }
 
-              if (defaultFontVariantFound) {
-                tag.fontVariant = tag.font.variants[defaultFontVariantIndex];
-              } else {
-                tag.fontVariant = tag.font.variants[0];
+            // Set the right subsets (Use as many of the already selected as possible)
+            // TODO: This results in calling the updateContent function multiple times
+            //       if the already selected subsets are very different from those
+            //       the newly selected font family offers
+            //       Example: "latin" selected, but the new font family only offers "korean"
+            for (var i = 0; i < tag.subsets.length; i++) {
+              if (!tag.font.subsets.includes(tag.subsets[i])) {
+                tag.subsets.splice(i, 1);
               }
+            }
+            if (tag.subsets.length === 0) {
+              tag.subsets.push(tag.font.defaultSubset);
             }
 
             // HTML
             var htmlFontFamilyName = tag.font.name.replace(' ', '+');
-            var htmlFontWeight = tag.fontVariant.weight;
-            var htmlFontStyle = tag.fontVariant.style === 'italic' ? 'i' : '' // Adding an 'i' behind the font weight loads the italic version (German: "Schriftschnitt")
+            var htmlFontWeight = tag.variant.weight;
+            var htmlFontStyle = tag.variant.style === 'italic' ? 'i' : '' // Adding an 'i' behind the font weight loads the italic version (German: "Schriftschnitt")
             var htmlSubsets = tag.subsets.join(',')
             // Is it a good idea to create URLs and HTML tags manually like that? NO! Am I doing it anyway here? YES!
             // Example:  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap&subset=cyrillic,greek" rel="stylesheet">
@@ -136,12 +141,12 @@
             var cssTagName      = tag.name;
             var cssFontFamily   = "'" + tag.font.name + "', " + tag.font.category.toLowerCase().replace('_', '-');
             var cssFontSize     = tag.fontSize + 'px';
-            var cssFontStyle    = tag.fontVariant.style;
-            var cssFontWeight   = tag.fontVariant.weight;
+            var cssFontStyle    = tag.variant.style;
+            var cssFontWeight   = tag.variant.weight;
             var cssLineHeight   = tag.lineHeight + 'em';
             var cssMarginBottom = tag.marginBottom + 'em';
 
-            $('#design-tab #editor-output ' + cssTagName)
+            $('#design-tab #editor-output ' + cssTagName + (cssTagName === 'blockquote' ? ' p' : ''))
             .css('font-family',   cssFontFamily)
             .css('font-size',     cssFontSize)
             .css('font-style',    cssFontStyle)

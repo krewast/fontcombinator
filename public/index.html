@@ -7,6 +7,8 @@
   <meta name="description" content="Create Google Font combinations">
   <meta name="author" content="Bastian Kres">
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+
   <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
   <link rel="stylesheet" href="./css/main.css">
 
@@ -50,6 +52,7 @@
                   <div class="form-group">
                     <label for="font">Font Family</label>
                     <select id="font" class="form-control" v-model="tag.font">
+                      <option v-bind:value="undefined" disabled selected>Select</option>
                       <option v-for="font in orderedFonts" v-bind:value="font">
                         {{font.name}}
                       </option>
@@ -58,8 +61,8 @@
 
                   <div v-if="tag.font !== undefined">
                     <div class="form-group">
-                      <label for="font-variant">Font Variant</label>
-                      <select id="font-variant" class="form-control" v-model="tag.fontVariant">
+                      <label for="variant">Variant</label>
+                      <select id="variant" class="form-control" v-model="tag.variant">
                         <option v-for="variant in tag.font.variants" v-bind:value="variant">
                           {{variant.weight}} ({{variant.style}})
                         </option>
@@ -112,7 +115,9 @@
                       <strong>Designer:</strong><br>
                       {{tag.font.designer}}<br>
                       <strong>License:</strong><br>
-                      {{tag.font.license}}
+                      {{tag.font.license}}<br>
+                      <strong>Popularity:</strong><br>
+                      {{tag.font.popularity}} of {{fonts.length}}
                     </div>
                     <a href="#" role="button" data-toggle="collapse" v-bind:data-target="'#collapse-additional-info-' + tagIndex">
                       More Info
