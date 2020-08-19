@@ -1,15 +1,34 @@
-# Create Google Font combinations
+# Quickly create Google Font combinations
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+When creating websites, suitable fonts play a major role for the later design. Since not all fonts can be used on the web at will, <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>, a collection of freely usable web fonts, is often the solution. However, this collection is quite extensive and the selection of suitable fonts or matching combinations of fonts is very time-consuming. To simplify the selection process and to be able to test font combinations quickly, I developed the Font Combinator.
 
-## Create Google Font combinations
+## Features
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+The text you are reading right now can be edited by clicking on the "Edit" tab above. It's written using the <a href="https://commonmark.org/help/" target="_blank">Markdown format</a> which makes it very easy to create headings, subheadings, paragraphs and other elements.
 
-### Create Google Font combinations
+To change the font of an element, go to the sidebar, choose the one you want to alter (h1, h2, h3, p, code or blockquote) and select a font from the list. It immediately loads the new font and gives you further customization options. Note: Any changes can only be seen in the "Design" tab!
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+As soon as you are happy with your selection and settings, you can use the "Embed" tab to copy the necessary HTML and CSS to use the chosen fonts as starting point in your own web project.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+If anything goes wrong, reload this site to set it back to its initial state.
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+### Different styles for different tags
+
+HTML offers a big set of different tags to structure text and documents. To keep things as simple as possible, only a small number of them can be found in the sidebar. "h1" (heading), "h2" (subheading), "h3" (subsubheading), "p" (paragraph), "code":
+
+```
+#include<stdio.h>
+
+int main() {
+  printf("Hello World\n");
+  return 0;
+}
+```
+
+... and "blockquote":
+
+> "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe." - Albert Einstein 
+
+Note: The light gray background for the "code" and "blockquote" tags is not the default and only there for a better distinction from paragraphs.
+
+Have fun playing around! :)
