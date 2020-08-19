@@ -75,8 +75,16 @@ nav.navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.6);
 }
 
-nav.navbar-dark .navbar-nav .nav-link:hover {
+nav.navbar-dark .navbar-nav .nav-link svg {
+  position: relative;
+  top: -4px;
+  stroke: rgba(255, 255, 255, 0.6);;
+}
+
+nav.navbar-dark .navbar-nav .nav-link:hover,
+nav.navbar-dark .navbar-nav .nav-link:hover svg {
   color: rgba(255, 255, 255, 0.9);
+  stroke: rgba(255, 255, 255, 0.9);;
 }
 
 /* ===============
@@ -159,7 +167,7 @@ nav.navbar-dark .navbar-nav .nav-link:hover {
 #design-tab #editor-output,
 #edit-tab #editor-input {
   width: 100%;
-  min-height: 600px;
+  min-height: 800px;
   height: 100%;
   padding: 1rem;
 }
@@ -170,28 +178,20 @@ nav.navbar-dark .navbar-nav .nav-link:hover {
 #design-tab #editor-output h4,
 #design-tab #editor-output h5,
 #design-tab #editor-output h6 {
-  margin-bottom: 0.2em;
+  margin-bottom: 0.4em;
   line-height: 1.15em;
 }
 
 #design-tab #editor-output h1 {
-  font-size: 34px;
+  font-size: 36px;
 }
 
 #design-tab #editor-output h2 {
-  font-size: 30px;
+  font-size: 32px;
 }
 
 #design-tab #editor-output h3 {
-  font-size: 26px;
-}
-
-#design-tab #editor-output h4 {
-  font-size: 22px;
-}
-
-#design-tab #editor-output h5 {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 #design-tab #editor-output p,
@@ -202,8 +202,13 @@ nav.navbar-dark .navbar-nav .nav-link:hover {
   line-height: 1.3em;
 }
 
+#design-tab #editor-output code,
+#design-tab #editor-output blockquote p {
+  background-color: #ecf1f5;
+}
+
 #design-tab #editor-output code {
-  display: inline-block;
+  display: block;
 }
 
 /* Marked puts "code" inside "pre"
@@ -218,7 +223,7 @@ nav.navbar-dark .navbar-nav .nav-link:hover {
 
 #edit-tab #editor-input {
   font-family: 'Courier Prime', Courier, monospace;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.1rem;
   background-color: rgba(0, 0, 0, 0.03);
   border-style: none;

@@ -2,10 +2,10 @@
 <html class="no-js" lang="en-US">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Create Google Font combinations | Font Combinator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Create Google Font combinations">
+  <title>Quickly create Google Font combinations | Font Combinator</title>
+  <meta name="description" content="Quickly and easily find suitable web fonts or matching combinations of web fonts for your next project.">
   <meta name="author" content="Bastian Kres">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
 
@@ -30,7 +30,15 @@
           <a class="nav-link" data-toggle="modal" data-target="#modalAbout">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="//github.com/krewast/fontcombinator" target="_blank">Github</a>
+          <a class="nav-link" href="//github.com/krewast/fontcombinator" target="_blank">
+            Github
+            <!-- Icon from https://feathericons.com/ (MIT license) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
         </li>
       </ul>
     </div>
@@ -50,7 +58,7 @@
               <div class="card-body">
                 <form>
                   <div class="form-group">
-                    <label for="font">Font Family</label>
+                    <label for="font">Font</label>
                     <select id="font" class="form-control" v-model="tag.font">
                       <option v-bind:value="undefined" disabled selected>Select</option>
                       <option v-for="font in orderedFonts" v-bind:value="font">
@@ -100,7 +108,7 @@
                     </div>
 
                     <div class="form-group">
-                      <strong>Subsets / Languages</strong>
+                      <strong>Subsets</strong>
                       <div class="form-check" v-for="(subset, subsetIndex) in tag.font.subsets">
                         <input class="form-check-input" v-bind:id="'subset' + subsetIndex" type="checkbox" v-bind:value="subset" v-model="tag.subsets" v-bind:disabled="tag.subsets.length === 1 && tag.subsets.includes(subset)">
                         <label class="form-check-label" v-bind:for="'subset' + subsetIndex">
@@ -132,7 +140,7 @@
 
       <div id="content" class="col-12 col-md-8 col-lg-9 col-xl-10">
         <div class="nav nav-tabs" role="tablist">
-          <a class="nav-item nav-link active" data-toggle="tab" href="#design-tab" role="tab">Design</a>
+          <a class="nav-item nav-link active" data-toggle="tab" href="#design-tab" role="tab" v-on:click="updateContent">Design</a>
           <a class="nav-item nav-link" data-toggle="tab" href="#edit-tab" role="tab">Edit</a>
           <a class="nav-item nav-link" data-toggle="tab" href="#embed-tab" role="tab">Embed</a>
         </div>
@@ -183,14 +191,14 @@
           <div class="modal-body">
             <p>
               I developed the Font Combinator to solve my own problem: When creating websites, suitable fonts play
-              a major role for the later design. Since not all fonts can be used on the web at will, Google Fonts,
-              a collection of freely usable web fonts, is often used. However, this collection is quite extensive and
+              a major role for the later design. Since not all fonts can be used on the web at will, <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>,
+              a collection of freely usable web fonts, is often the solution. However, this collection is quite extensive and
               the selection of suitable fonts or matching combinations of fonts is very time-consuming. To simplify the
               selection process and to be able to test font combinations quickly, I developed the Font Combinator.
             </p>
 
             <p>
-              Using Font Combinator is free and requires no registration. The code of this project is open source
+              Using the Font Combinator is free and requires no registration. The code of this project is open source
               and is available on <a href="//github.com/krewast/fontcombinator" target="_blank">Github</a>.
             </p>
 
